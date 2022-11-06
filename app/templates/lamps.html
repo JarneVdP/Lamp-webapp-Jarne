@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Classroom lights</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+        integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+        crossorigin="anonymous">
+        </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var socket = io();
+
+            var lampsarray = ['lamp1a', 'lamp1b', 'lamp1c', 'lamp2a', 'lamp2b', 'lamp2c', 'lamp3a', 'lamp3b', 'lamp3c', 'lamp4a', 'lamp4b', 'lamp4c', 'lamp5a', 'lamp5b', 'lamp5c', 'lamp6a']
+            var lampslength = lampsarray.length
+            var resarray = []
+            function lampstatus() {
+                for (let i = 0; i < lampslength; i++) {
+                    $.ajax({
+                        type: 'GET',
+                        url: "/api/" + lampsarray[i],
+                        success: function (data) {
+                            var result = data.lampvalue
+                            var res = result.replace(/\D/g, ""); //get only the number from the string
+                            console.log(lampsarray[i], data, res)
+                            if (res) { resarray.push(parseInt(res)) }
+                            $("#customRange" + lampsarray[i].slice(-2)).val(res);
+                            $("#customRange" + lampsarray[i].slice(-2) + "Value").text(res);
+
+                            // check if lamp6a 
+                            if (lampsarray[i] == 'lamp6a') {
+                                console.log(resarray, typeof resarray[1])
+                                //take the average of the array
+                                var sum = resarray.reduce(function (a, b) { return a + b; });
+                                var avg = (sum / resarray.length).toFixed(0);
+                                console.log(" avg", avg)
+                                $("#customRange" + lampsarray[i].slice(-2)).val(avg);
+                                $("#customRange" + lampsarray[i].slice(-2) + "Value").text(avg);
+
+                                resarray = [];
+                            }
+                        }
+                    })
+                }
+            }
+            lampstatus();
+
+            socket.on('ReceiveFromLampServer', function(msg){
+                //console.log(msg);
+                lampstatus();
+            });
+            // call lampstatus every 30 seconds
+            //setInterval(lampstatus, 30000);
+
+            //set all lamps to the value of a slider
+            $(".myslider-range-all").change(function () {
+                for (let i = 0; i < lampslength; i++) {
+                    console.log("Slider " + lampsarray[i] + " aangepast naar " + $(this).val());
+                    $("#" + lampsarray[i].slice(-2) + "Value").text($(this).val()); //change the text to the slider value
+                    $.ajax({
+                        type: 'POST',
+                        url: 'api/lamp' + lampsarray[i].slice(-2),
+                        data: { dimming: $(this).val() }
+                    });
+                }
+                lampstatus();
+            });
+
+
+            $(".myslider-range").change(function () {
+                $("#" + this.id + "Value").text($(this).val()); //change the text to the slider value
+
+                $.ajax({    //change the value of the lamp based on the slider value
+                    type: 'POST',
+                    url: 'api/lamp' + this.id.slice(-2),
+                    data: { dimming: $(this).val() }
+                });
+            });
+        });
+    </script>
+    <style>
+        body {
+            background-image: url("/static/classroom-opacity.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+
+
+<body>
+    <form action='logout' method='POST'>
+        <!--<a href="{{ url_for('main.logout') }}">login</a>-->
+        <button class="btn btn-danger" type="submit" name='submit'>Log out</button>
+    </form>
+    <main class="container">
+        <div class="bg-light p-5 mt-3 rounded">
+            <h1> Lamp grid</h1>
+            <p class="lead">De lamp grid wordt gevormd. Grid op twee manieren gevormd adhv bootstrap en jquery</p>
+        </div>
+    </main>
+
+    
+    <main class="container">
+        <div class="bg-light p-5 mt-3 rounded">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col">
+                        <label for="customRange1" class="form-label">Column 1a</label>
+                        <br> Value
+                        <span class="myvalues" id="customRange1aValue"> -1 </span>
+                        <br>
+                        <input type="range" min="0" max="100" class="myslider-range" id="customRange1a">
+                    </div>
+                    <div class="col">
+                        <label for="customRange1" class="form-label">Column 1b</label>
+                        <br> Value
+                        <span class="myvalues" id="customRange1bValue"> -1 </span>
+                        <br>
+                        <input type="range" min="0" max="100" class="myslider-range" id="customRange1b">
+
+                    </div>
+                    <div class="col">
+                        <label for="customRange1" class="form-label">Column 1c</label>
+                        <br> Value
+                        <span class="myvalues" id="customRange1cValue"> -1 </span>
+                        <br>
+                        <input type="range" min="0" max="100" class="myslider-range" id="customRange1c">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="customRange1" class="form-label">Column 2a</label>
+                        <br> Value
+                        <span class="myvalues" id="customRange2aValue"> -1 </span>
+                        <br>
+                        <input type="range" min="0" max="100" class="myslider-range" id="customRange2a">
+                    </div>
+                    <div class="col">
+                        <label for="customRange1" class="form-label">Column 2b</label>
+                        <br> Value
+                        <span class="myvalues" id="customRange2bValue"> -1 </span>
+                        <br>
+                        <input type="range" min="0" max="100" class="myslider-range" id="customRange2b">
+                    </div>
+                    <div class="col">
+                        <label for="customRange1" class="form-label">Column 2c</label>
+                        <br> Value
+                        <span class="myvalues" id="customRange2cValue"> -1 </span>
+                        <br>
+                        <input type="range" min="0" max="100" class="myslider-range" id="customRange2c">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="customRange1" class="form-label">Column 3a</label>
+                        <br> Value
+                        <span class="myvalues" id="customRange3aValue"> -1 </span>
+                        <br>
+                        <input type="range" min="0" max="100" class="myslider-range" id="customRange3a">
+                    </div>
+                    <div class="col">
+                        <label for="customRange1" class="form-label">Column 3b</label>
+                        <br> Value
+                        <span class="myvalues" id="customRange3bValue"> -1 </span>
+                        <br>
+                        <input type="range" min="0" max="100" class="myslider-range" id="customRange3b">
+                    </div>
+                    <div class="col">
+                        <label for="customRange1" class="form-label">Column 3c</label>
+                        <br> Value
+                        <span class="myvalues" id="customRange3cValue"> -1 </span>
+                        <br>
+                        <input type="range" min="0" max="100" class="myslider-range" id="customRange3c">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="customRange1" class="form-label">Column 4a</label>
+                        <br> Value
+                        <span class="myvalues" id="customRange4aValue"> -1 </span>
+                        <br>
+                        <input type="range" min="0" max="100" class="myslider-range" id="customRange4a">
+                    </div>
+                    <div class="col">
+                        <label for="customRange1" class="form-label">Column 4b</label>
+                        <br> Value
+                        <span class="myvalues" id="customRange4bValue"> -1 </span>
+                        <br>
+                        <input type="range" min="0" max="100" class="myslider-range" id="customRange4b">
+                    </div>
+                    <div class="col">
+                        <label for="customRange1" class="form-label">Column 4c</label>
+                        <br> Value
+                        <span class="myvalues" id="customRange4cValue"> -1 </span>
+                        <br>
+                        <input type="range" min="0" max="100" class="myslider-range" id="customRange4c">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="customRange1" class="form-label">Column 5a</label>
+                        <br> Value
+                        <span class="myvalues" id="customRange5aValue"> -1 </span>
+                        <br>
+                        <input type="range" min="0" max="100" class="myslider-range" id="customRange5a">
+                    </div>
+                    <div class="col">
+                        <label for="customRange1" class="form-label">Column 5b</label>
+                        <br> Value
+                        <span class="myvalues" id="customRange5bValue"> -1 </span>
+                        <br>
+                        <input type="range" min="0" max="100" class="myslider-range" id="customRange5b">
+                    </div>
+                    <div class="col">
+                        <label for="customRange1" class="form-label">Column 5c</label>
+                        <br> Value
+                        <span class="myvalues" id="customRange5cValue"> -1 </span>
+                        <br>
+                        <input type="range" min="0" max="100" class="myslider-range" id="customRange5c">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="customRange1" class="form-label">All</label>
+                        <br> Value
+                        <span class="myvalues" id="customRange6aValue"> -1 </span>
+                        <br>
+                        <input type="range" min="0" max="100" class="myslider-range-all" id="customRange6a">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
