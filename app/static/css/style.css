@@ -62,3 +62,7 @@ body {
      -moz-border-radius: 8px;
           border-radius: 8px;
 }
+/*change the text hover color of the bnt-xlarge to black altough this doesnt seem to work*/
+.btn-xlarge:hover {
+  color: black;
+}

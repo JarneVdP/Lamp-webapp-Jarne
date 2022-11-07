@@ -52,7 +52,7 @@
             }
             lampstatus();
 
-            socket.on('ReceiveFromLampServer', function(msg){
+            socket.on('ReceiveFromLampServer', function (msg) {
                 //console.log(msg);
                 lampstatus();
             });
@@ -86,158 +86,223 @@
         });
     </script>
     <style>
-        body {
-            background-image: url("/static/classroom-opacity.png");
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-attachment: fixed;
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .b-example-divider {
+            height: 3rem;
+            background-color: rgba(0, 0, 0, .1);
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+        }
+
+        .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh;
+        }
+
+        .bi {
+            vertical-align: -.125em;
+            fill: currentColor;
+        }
+
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+        }
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        input:focus+label {
+            color: black;
+        }
+        .slider-range {
+            background-color: #0ba9e7;
         }
     </style>
+
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/cover.css">
+
 </head>
 
 
-<body>
-    <a href="/logout" class="btn btn-danger" role="button">Log out</a>
+<body class="d-flex h-100 text-center text-bg-dark">
 
-    <main class="container">
-        <div class="bg-light p-5 mt-3 rounded">
-            <h1> Lamp grid</h1>
-            <p class="lead">De lamp grid wordt gevormd. Grid op twee manieren gevormd adhv bootstrap en jquery</p>
-        </div>
-    </main>
-
-    
-    <main class="container">
+    <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="mb-auto">
+            <div>
+                <h3 class="float-md-start mb-0">Lampss</h3>
+                <nav class="nav nav-masthead justify-content-center float-md-end">
+                    <a class="nav-link fw-bold py-1 px-0" href="/">Home</a>
+                    <a class="nav-link fw-bold py-1 px-0" aria-current="page" href="/register">Register</a>
+                    <a class="nav-link fw-bold py-1 px-0" href="/login">Login</a>
+                    <a class="nav-link fw-bold py-1 px-0" href="/logout">Log out</a>
+                </nav>
+            </div>
+        </header>
+        <div class="text-center">
+            <div class="form-signin w-auto m-auto text-nowrap">
+                <h1 class="h3 mb-3 fw-normal">Change the lamp strength</h1>
+            </div>
+        </div> 
         <div class="bg-light p-5 mt-3 rounded">
             <div class="container text-center">
                 <div class="row">
                     <div class="col">
-                        <label for="customRange1" class="form-label">Column 1a</label>
-                        <br> Value
-                        <span class="myvalues" id="customRange1aValue"> -1 </span>
-                        <br>
+                        <label for="customRange1" class="text-muted">Column 1a</label>
+                        <p class="text-muted">Value
+                            <span class="myvalues text-muted" id="customRange1aValue"> -1 </span>
+                        </p>
                         <input type="range" min="0" max="100" class="myslider-range" id="customRange1a">
                     </div>
                     <div class="col">
-                        <label for="customRange1" class="form-label">Column 1b</label>
-                        <br> Value
-                        <span class="myvalues" id="customRange1bValue"> -1 </span>
-                        <br>
+                        <label for="customRange1" class="text-muted">Column 1b</label>
+                        <p class="text-muted">Value
+                            <span class="myvalues text-muted" id="customRange1bValue"> -1 </span>
+                        </p>
                         <input type="range" min="0" max="100" class="myslider-range" id="customRange1b">
-
                     </div>
                     <div class="col">
-                        <label for="customRange1" class="form-label">Column 1c</label>
-                        <br> Value
-                        <span class="myvalues" id="customRange1cValue"> -1 </span>
-                        <br>
+                        <label for="customRange1" class="text-muted">Column 1c</label>
+                        <p class="text-muted">Value
+                            <span class="myvalues text-muted" id="customRange1cValue"> -1 </span>
+                        </p>
                         <input type="range" min="0" max="100" class="myslider-range" id="customRange1c">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <label for="customRange1" class="form-label">Column 2a</label>
-                        <br> Value
-                        <span class="myvalues" id="customRange2aValue"> -1 </span>
-                        <br>
+                        <label for="customRange1" class="text-muted">Column 2a</label>
+                        <p class="text-muted">Value
+                            <span class="myvalues text-muted" id="customRange2aValue"> -1 </span>
+                        </p>
                         <input type="range" min="0" max="100" class="myslider-range" id="customRange2a">
                     </div>
                     <div class="col">
-                        <label for="customRange1" class="form-label">Column 2b</label>
-                        <br> Value
-                        <span class="myvalues" id="customRange2bValue"> -1 </span>
-                        <br>
+                        <label for="customRange1" class="text-muted">Column 2b</label>
+                        <p class="text-muted">Value
+                            <span class="myvalues text-muted" id="customRange2bValue"> -1 </span>
+                        </p>
                         <input type="range" min="0" max="100" class="myslider-range" id="customRange2b">
                     </div>
                     <div class="col">
-                        <label for="customRange1" class="form-label">Column 2c</label>
-                        <br> Value
-                        <span class="myvalues" id="customRange2cValue"> -1 </span>
-                        <br>
+                        <label for="customRange1" class="text-muted">Column 2c</label>
+                        <p class="text-muted">Value
+                            <span class="myvalues text-muted" id="customRange2cValue"> -1 </span>
+                        </p>
                         <input type="range" min="0" max="100" class="myslider-range" id="customRange2c">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <label for="customRange1" class="form-label">Column 3a</label>
-                        <br> Value
-                        <span class="myvalues" id="customRange3aValue"> -1 </span>
-                        <br>
+                        <label for="customRange1" class="text-muted">Column 3a</label>
+                        <p class="text-muted">Value
+                            <span class="myvalues text-muted" id="customRange3aValue"> -1 </span>
+                        </p>
                         <input type="range" min="0" max="100" class="myslider-range" id="customRange3a">
                     </div>
                     <div class="col">
-                        <label for="customRange1" class="form-label">Column 3b</label>
-                        <br> Value
-                        <span class="myvalues" id="customRange3bValue"> -1 </span>
-                        <br>
+                        <label for="customRange1" class="text-muted">Column 3b</label>
+                        <p class="text-muted">Value
+                            <span class="myvalues text-muted" id="customRange3bValue"> -1 </span>
+                        </p>
                         <input type="range" min="0" max="100" class="myslider-range" id="customRange3b">
                     </div>
                     <div class="col">
-                        <label for="customRange1" class="form-label">Column 3c</label>
-                        <br> Value
-                        <span class="myvalues" id="customRange3cValue"> -1 </span>
-                        <br>
+                        <label for="customRange1" class="text-muted">Column 3c</label>
+                        <p class="text-muted">Value
+                            <span class="myvalues text-muted" id="customRange3cValue"> -1 </span>
+                        </p>
                         <input type="range" min="0" max="100" class="myslider-range" id="customRange3c">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <label for="customRange1" class="form-label">Column 4a</label>
-                        <br> Value
-                        <span class="myvalues" id="customRange4aValue"> -1 </span>
-                        <br>
+                        <label for="customRange1" class="text-muted">Column 4a</label>
+                        <p class="text-muted">Value
+                            <span class="myvalues text-muted" id="customRange4aValue"> -1 </span>
+                        </p>
                         <input type="range" min="0" max="100" class="myslider-range" id="customRange4a">
                     </div>
                     <div class="col">
-                        <label for="customRange1" class="form-label">Column 4b</label>
-                        <br> Value
-                        <span class="myvalues" id="customRange4bValue"> -1 </span>
-                        <br>
+                        <label for="customRange1" class="text-muted">Column 4b</label>
+                        <p class="text-muted">Value
+                            <span class="myvalues text-muted" id="customRange4bValue"> -1 </span>
+                        </p>
                         <input type="range" min="0" max="100" class="myslider-range" id="customRange4b">
                     </div>
                     <div class="col">
-                        <label for="customRange1" class="form-label">Column 4c</label>
-                        <br> Value
-                        <span class="myvalues" id="customRange4cValue"> -1 </span>
-                        <br>
+                        <label for="customRange1" class="text-muted">Column 4c</label>
+                        <p class="text-muted">Value
+                            <span class="myvalues text-muted" id="customRange4cValue"> -1 </span>
+                        </p>
                         <input type="range" min="0" max="100" class="myslider-range" id="customRange4c">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <label for="customRange1" class="form-label">Column 5a</label>
-                        <br> Value
-                        <span class="myvalues" id="customRange5aValue"> -1 </span>
-                        <br>
+                        <label for="customRange1" class="text-muted">Column 5a</label>
+                        <p class="text-muted">Value
+                            <span class="myvalues text-muted" id="customRange5aValue"> -1 </span>
+                        </p>
                         <input type="range" min="0" max="100" class="myslider-range" id="customRange5a">
                     </div>
                     <div class="col">
-                        <label for="customRange1" class="form-label">Column 5b</label>
-                        <br> Value
-                        <span class="myvalues" id="customRange5bValue"> -1 </span>
-                        <br>
+                        <label for="customRange1" class="text-muted">Column 5b</label>
+                        <p class="text-muted">Value
+                            <span class="myvalues text-muted" id="customRange5bValue"> -1 </span>
+                        </p>
                         <input type="range" min="0" max="100" class="myslider-range" id="customRange5b">
                     </div>
                     <div class="col">
-                        <label for="customRange1" class="form-label">Column 5c</label>
-                        <br> Value
-                        <span class="myvalues" id="customRange5cValue"> -1 </span>
-                        <br>
+                        <label for="customRange1" class="text-muted">Column 5c</label>
+                        <p class="text-muted">Value
+                            <span class="myvalues text-muted" id="customRange5cValue"> -1 </span>
+                        </p>
                         <input type="range" min="0" max="100" class="myslider-range" id="customRange5c">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <label for="customRange1" class="form-label">All</label>
-                        <br> Value
-                        <span class="myvalues" id="customRange6aValue"> -1 </span>
-                        <br>
-                        <input type="range" min="0" max="100" class="myslider-range-all" id="customRange6a">
+                        <label for="customRange1" class="text-muted">All</label>
+                        <p class="text-muted">Value
+                            <span class="myvalues text-muted" id="customRange6  aValue"> -1 </span>
+                        </p>
+                        <input type="range" min="0" max="100" class="myslider-range" id="customRange6a">
                     </div>
                 </div>
-            </div>
+            </div>  
         </div>
-    </main>
+
+        <footer class="mt-auto text-white-50">
+            <p> Jarne Van der Plas</p>
+        </footer>
+    </div>
 </body>
 
 </html>
