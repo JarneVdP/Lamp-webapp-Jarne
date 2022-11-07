@@ -4,33 +4,32 @@ from . import main
 import flask, flask_login
 
 
-#flask-login user_loader functie controleert bij elk pagina verzoek de geldigheid van de sessie
+#Check if the user is logged in. Remember the user if the user is logged in
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-#flask-login custom unauthorized handler. Wordt uitgevoerd indien niet ingelogd of ongeldig...
+#flask-login custom unauthorized handler. If the user is not logged in, redirect to the unauthorized page where the log in and sign up forms are ready
 @login_manager.unauthorized_handler
 def unauthorized():
     return flask.render_template('unauthorized.html')    
 
 
-
-#index template geeft andere inhoud afhankelijk of gebruiker is ingelogd of niet. Bekijk template...
+#index Shows the homepage. The text is dependant on whether the user is logged in or not
 @main.route('/')
 def index():
     return flask.render_template('index.html')
 
 
-#home template geeft bepaalde inhoud van de user sessie.
-#enkel toegankelijk indien gebruiker ingelogd.
+#home template shows the user information. It's just to show the salt and hash. Tbh, it's not smart to show the salt and hash to the user. It's just for testing purposes
 @main.route('/home')
 @flask_login.login_required
 def home():
     return flask.render_template('home.html')
 
-#logout route. Roept de flask-login logout_user() functie op om de gebruikersessie te stoppen.
+
+#logout route. using flask-login to log out the user. Redirect to the index page. because of wekzeug, we need to use main.index instead of just index. Main is the blueprint name
 @main.route("/logout")
 @flask_login.login_required
 def logout():
@@ -40,6 +39,9 @@ def logout():
 #Login route. GET methode voor weergeven login formulier. POST methode om login formulier te verwerken.
 #Controleert of username & password overeen komen met database
 #Roept de flask-login login_user(user) functie op indien correct, waarbij user de overeenkomende inhoud bevat volgens User model.
+
+#login route. GET method to show the login form. POST method to process the login form. Check if the user is in the database. 
+#Else, redirect to the login page.
 @main.route('/login', methods=['GET', 'POST'])
 def login():
     if flask.request.method == 'POST':
@@ -48,8 +50,9 @@ def login():
             #salt and hash password
             if user and bcrypt.check_password_hash(user.pwd, flask.request.form['password']):
                 flask_login.login_user(user)
-                return flask.redirect(flask.url_for('main.indexlamp'))
-            #flask.flash('Invalid username or password')
+                return flask.redirect(flask.url_for('main.index'))
+            #Show popup message if the username or password is incorrect
+            flask.flash('Username or password is incorrect')
             return flask.redirect(flask.url_for('main.login'))
         except Exception as e:
             print(e)
@@ -57,9 +60,8 @@ def login():
     else:
         return flask.render_template('login.html')
 
-#Register route. GET methode voor weergeven register formulier. POST methode om register formulier te verwerken.
-#Maakt nieuwe user aan.
-#Nieuwe user wordt daarbij ook gepusht naar database.
+
+#Register route. GET method to show the register form. POST method to process the register form. When the user is created,push the new user to the database.
 @main.route('/register', methods=['GET', 'POST'])
 def register():
     if flask.request.method == 'POST':

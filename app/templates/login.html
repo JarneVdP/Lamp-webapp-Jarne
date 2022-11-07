@@ -66,6 +66,10 @@
     input:focus+label {
       color: black;
     }
+
+    .textbackground {
+      background-color: #ebdf85;
+    }
   </style>
 
   <link rel="stylesheet" href="static/css/style.css">
@@ -88,18 +92,15 @@
       </div>
     </header>
 
-    <!-- {% block content %}
-    <div class="container">
-      {% for message in get_flashed_messages() %}
-      <div class="alert alert-warning">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        {{ message }}
-      </div>
+    <div class=textbackground>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      {{ message }}
       {% endfor %}
-
-      {% block page_content %}{% endblock %}
+      {% endif %}
+      {% endwith %}
     </div>
-    {% endblock %} -->
 
     <div class="text-center">
       <main class="form-signin w-100 m-auto">
