@@ -1,0 +1,64 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.floating-label-form-group textarea::-webkit-input-placeholder,
+.floating-label-form-group input::-webkit-input-placeholder {
+  color: black;
+}
+
+.floating-label-form-group textarea:-moz-placeholder,
+.floating-label-form-group input:-moz-placeholder {
+  /* Firefox 18- */
+  color: black;
+}
+
+.floating-label-form-group textarea::-moz-placeholder,
+.floating-label-form-group input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: black;
+}
+
+.floating-label-form-group textarea:-ms-input-placeholder,
+.floating-label-form-group input:-ms-input-placeholder {
+  color: black;
+}
+
+.btn-xlarge {
+  padding: 15px 28px;
+  font-size: 18px;
+  line-height: normal;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+}
