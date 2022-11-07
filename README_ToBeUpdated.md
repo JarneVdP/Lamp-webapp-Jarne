@@ -1,4 +1,20 @@
-# Voorbeeld Flask gebaseerde webapplicatie
+# Lamps webapp using Flask
+
+## Run the project
+```
+python -m lamps
+```
+Use `-m` to run the whole application
+
+The database won't work yet. From your starting location, where lamps.py is located, run
+```
+python -m app.main.manage-db
+```
+Now in the main folder, database.db will be created. The database will store the accounts. They are created automatically.
+
+
+
+
 
 ## Downloaden / Updaten van dit project:
 Git project eerste keer downloaden (via een terminal): 
