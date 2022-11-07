@@ -75,43 +75,56 @@
 
 
 <body class="d-flex h-100 text-center text-bg-dark">
-  
+
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="mb-auto">
       <div>
-          <h3 class="float-md-start mb-0">Lampss</h3>
-          <nav class="nav nav-masthead justify-content-center float-md-end">
-            <a class="nav-link fw-bold py-1 px-0" href="/">Home</a>
-            <a class="nav-link fw-bold py-1 px-0" aria-current="page" href="/register">Register</a>
-            <a class="nav-link fw-bold py-1 px-0 active" href="/login">Login</a>
-          </nav>
-        </div>
-      </header>
+        <h3 class="float-md-start mb-0">Lampss</h3>
+        <nav class="nav nav-masthead justify-content-center float-md-end">
+          <a class="nav-link fw-bold py-1 px-0" href="/">Home</a>
+          <a class="nav-link fw-bold py-1 px-0" aria-current="page" href="/register">Register</a>
+          <a class="nav-link fw-bold py-1 px-0 active" href="/login">Login</a>
+        </nav>
+      </div>
+    </header>
 
-      <div class="text-center">
-        <main class="form-signin w-100 m-auto">
-          <form action='login' method='POST'>
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-      
-            <div class="form-floating">
-              <input type="text" class="form-control" name='username' id="username" placeholder="username">
-              <label for="floatingInput">Username</label>
-            </div>
-            <div class="col-xs-12" style="height:5px;"></div>
-            <div class="form-floating">
-              <input type="password" class="form-control" name='password' id="password" placeholder="Password">
-              <label for="floatingPassword">Password</label>
-            </div>
-      
-            <button class="w-100 btn btn-lg btn-info" type="submit" name='submit'>Sign in</button>
-          </form>
-        </main>
-        </div>
-  
-      <footer class="mt-auto text-white-50">
-        <p> Jarne Van der Plas</p>
-      </footer>
+    <!-- {% block content %}
+    <div class="container">
+      {% for message in get_flashed_messages() %}
+      <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+      </div>
+      {% endfor %}
+
+      {% block page_content %}{% endblock %}
     </div>
+    {% endblock %} -->
+
+    <div class="text-center">
+      <main class="form-signin w-100 m-auto">
+        <form action='login' method='POST'>
+          <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+          <div class="form-floating">
+            <input type="text" class="form-control" name='username' id="username" placeholder="username">
+            <label for="floatingInput">Username</label>
+          </div>
+          <div class="col-xs-12" style="height:5px;"></div>
+          <div class="form-floating">
+            <input type="password" class="form-control" name='password' id="password" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+          </div>
+
+          <button class="w-100 btn btn-lg btn-info" type="submit" name='submit'>Sign in</button>
+        </form>
+      </main>
+    </div>
+
+    <footer class="mt-auto text-white-50">
+      <p> Jarne Van der Plas</p>
+    </footer>
+  </div>
 
 </body>
 
