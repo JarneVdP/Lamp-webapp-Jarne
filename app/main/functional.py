@@ -65,7 +65,3 @@ def lampstatusrequest(lamp):
         return {'lampvalue': str(val)}
     return ({'Error': ' not supported'}, 405)
 
-
-# Run the app
-# if __name__ == "__main__":
-#     SOCKETIO.run(APP, host='localhost', port=8080, debug=True, use_reloader=False)

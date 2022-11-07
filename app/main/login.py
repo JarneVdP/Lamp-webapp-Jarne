@@ -7,21 +7,12 @@ import flask, flask_login
 #flask-login user_loader functie controleert bij elk pagina verzoek de geldigheid van de sessie
 @login_manager.user_loader
 def load_user(user_id):
-    print("flask-login: user_loader functie opgeroepen om geldigheid user sessie %s te controleren." % user_id)
     return User.query.get(int(user_id))
 
 
 #flask-login custom unauthorized handler. Wordt uitgevoerd indien niet ingelogd of ongeldig...
-#@main.route('/unauthorized', methods=['GET', 'POST'])
 @login_manager.unauthorized_handler
 def unauthorized():
-    # if flask.request.method == 'POST':
-    #     try:
-    #         return flask.redirect(flask.url_for('main.register'))
-    #     except Exception as e:
-    #         print(e)
-    #         return(e)
-    # else:
     return flask.render_template('unauthorized.html')    
 
 
@@ -44,7 +35,7 @@ def home():
 @flask_login.login_required
 def logout():
     flask_login.logout_user()
-    return 'Logged out <a href="' + flask.url_for('main.index') + '">Index</a>'
+    return flask.redirect(flask.url_for('main.index')) 
 
 #Login route. GET methode voor weergeven login formulier. POST methode om login formulier te verwerken.
 #Controleert of username & password overeen komen met database
@@ -58,7 +49,8 @@ def login():
             if user and bcrypt.check_password_hash(user.pwd, flask.request.form['password']):
                 flask_login.login_user(user)
                 return flask.redirect(flask.url_for('main.indexlamp'))
-            return "Invalid username or password..."
+            #flask.flash('Invalid username or password')
+            return flask.redirect(flask.url_for('main.login'))
         except Exception as e:
             print(e)
             return e
