@@ -1,10 +1,7 @@
-#Bevat de database modellen.
 from ..application import db
 from flask_login import UserMixin
 
-#De gebruikte 'User' class wordt als subclass voortgebouwd bovenop: 
-# - flask-login UserMixin: bevat de benodigde flask-login zaken
-# - db.model (komend van SQLAlchemy): ORM database mapping
+#Using the database created in application.py, we create a User class that contains an id, username, and password. We use ORM Mapping
 class User(UserMixin, db.Model):
     __tablename__ = "user"
     

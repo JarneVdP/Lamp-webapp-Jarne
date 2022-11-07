@@ -1,7 +1,6 @@
 from ..application import create_app, db
-from ..main.models import User
 
-
+#as stated in the README, run the file to create a database with the necessary tables
 def init_db():
 	"""Initialize database(s)."""
 	app = create_app()

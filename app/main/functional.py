@@ -1,4 +1,3 @@
-from configparser import ConfigParser
 from flask import render_template, request
 from flask_socketio import SocketIO
 import flask_login
@@ -8,24 +7,11 @@ from .coapclient import *
 from ..templates import *
 from ..application import SOCKETIO, login_manager
 
+#lamps template for displaying all lamps values and the sliders
 @main.route('/lamps') 
 @flask_login.login_required
 def indexlamp():
     return render_template("lamps.html")
-
-
-# cd Downloads sudo openvpn JarneVanderPlas.ovpn
-# cd ../Desktop/GevorderdeWebappl/flask-webapp-Jarne python webapp.py
-# source env/bin/activate
-
-# test zodat de lampen aan gaan of niet aan gaan - check
-# agendasysteem -> toegan op agenda met databases, accounts, etc.
-# lampen -> toegang op lampen met slider, etc.\  - check
-# via javascript en sliders de waardebn aanpassen en doorsturen naar de coapclient. using jquery ajax() function - check
-# flask -login, -bcrypt: Hash and salt passwords - check
-# sqlite database voor login via sqlAlchemy  - check
-# flask-SocketIO() voor realtime communicatie tussen client en server
-# niet toestaan dat mensen via postman get/set sturen zonder ingelogd te zijn dus server side blockeren. flask login extra decorator = login_manager.session_protection, geimplementeerd in authentication/app.py maar nog niet getest
 
 
 # List with lamp names
@@ -41,6 +27,7 @@ def socketioconnected():
 def socketiodisconnected():
     print("Socketio disconnected.")
 
+# Socketio event handler for lamp status request
 @main.route('/api/<lamp>', methods=['GET', 'POST', 'PUT'])
 def lampstatusrequest(lamp):
     if lamp not in lamps:

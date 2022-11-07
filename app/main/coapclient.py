@@ -1,6 +1,7 @@
 import asyncio
 from aiocoap import *
 
+#receive the lamp status using coap. Once received, send the status to the webserver and show the status on the webpage
 async def coapgetlampstatus(url):
     print('coapgetlampstatus on', url)
     protocol = await Context.create_client_context()
@@ -14,6 +15,7 @@ async def coapgetlampstatus(url):
         print('Result: %s\n%r'%(response.code, response.payload))
         return response.payload
 
+#set the lamp status using coap. Change the value using the slider on the webpage
 async def coapsetlampstatus(url, value):
     print('coapsetlampstatus on', url, 'with value', value)
     protocol = await Context.create_client_context()
@@ -26,12 +28,3 @@ async def coapsetlampstatus(url, value):
     else:
         print('Result: %s'%(response.code))
         
-# async def main():
-#    await coapsetlampstatus('coap://lamp3b.irst.be/lamp/dimming', b'0')
-   
-#    val = await coapgetlampstatus('coap://lamp1c.irst.be/lamp/dimming')
-#    print("retrieved lamp value:", val)
-
-
-# if __name__ == "__main__":
-#    asyncio.run(main())
