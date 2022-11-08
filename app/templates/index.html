@@ -68,9 +68,8 @@
     }
 
     .btn-xlarge:hover {
-    color: black;
+      color: black;
     }
-
   </style>
 
   <link rel="stylesheet" href="static/css/style.css">
@@ -80,44 +79,57 @@
 
 
 <body class="d-flex h-100 text-center text-bg-dark">
-  
+
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    {% if current_user.is_authenticated %}
     <header class="mb-auto">
       <div>
-          <h3 class="float-md-start mb-0">Lampss</h3>
-          <nav class="nav nav-masthead justify-content-center float-md-end">
-            <a class="nav-link fw-bold py-1 px-0 active" href="/">Home</a>
-            <a class="nav-link fw-bold py-1 px-0" href="/register">Register</a>
-            <a class="nav-link fw-bold py-1 px-0" href="/login">Login</a>
-            <a class="nav-link fw-bold py-1 px-0" href="/logout">Logout</a>
-          </nav>
-        </div>
-      </header>
+        <h3 class="float-md-start mb-0">Lampss</h3>
+        <nav class="nav nav-masthead justify-content-center float-md-end">
+          <a class="nav-link fw-bold py-1 px-0 active" href="/">Home</a>
+          <a class="nav-link fw-bold py-1 px-0" href="/logout">Logout</a>
+        </nav>
+      </div>
+    </header>
 
-      {% if current_user.is_authenticated %}
-      <main class="px-3">
-        <h1>Welcome to lampss</h1>
-        <p class="lead">Well done, you signed in! Have fun playing with the lamps. If you want to have a look at the source code. Click on the Github button.</p>
-        <p class="lead">
-            <a href="/lamps" class="btn btn-xlarge fw-bold border-white bg-white">Lamps</a>
-          </p>
-        <p class="lead">
-          <a href="https://github.com/JarneVdP/Lamp-webapp-Jarne" class="btn btn-xlarge fw-bold border-white bg-white">Github</a>
-        </p>
-      </main>
-      {% else %}
-      <main class="px-3">
-        <h1>Please log in or register</h1>
-        <p class="lead">Once you created an account or logged in, you will get the full access to the site. You will be able to control the lights.
-            Honestly... Who wouldn't want that?</p>
-      </main>
-      {% endif %}
+    <main class="px-3">
+      <h1>Welcome to lampss</h1>
+      <p class="lead">Well done, you signed in! Have fun playing with the lamps. If you want to have a look at the
+        source code. Click on the Github button.</p>
+      <p class="lead">
+        <a href="/lamps" class="btn btn-xlarge fw-bold border-white bg-white">Lamps</a>
+      </p>
+      <p class="lead">
+        <a href="https://github.com/JarneVdP/Lamp-webapp-Jarne"
+          class="btn btn-xlarge fw-bold border-white bg-white">Github</a>
+      </p>
+    </main>
+    {% else %}
+    <header class="mb-auto">
+      <div>
+        <h3 class="float-md-start mb-0">Lampss</h3>
+        <nav class="nav nav-masthead justify-content-center float-md-end">
+          <a class="nav-link fw-bold py-1 px-0 active" href="/">Home</a>
+          <a class="nav-link fw-bold py-1 px-0" href="/register">Register</a>
+          <a class="nav-link fw-bold py-1 px-0" href="/login">Login</a>
+          <a class="nav-link fw-bold py-1 px-0" href="/logout">Logout</a>
+        </nav>
+      </div>
+    </header>
 
-  
-      <footer class="mt-auto text-white-50">
-        <p> Jarne Van der Plas</p>
-      </footer>
-    </div>
+    <main class="px-3">
+      <h1>Please log in or register</h1>
+      <p class="lead">Once you created an account or logged in, you will get the full access to the site. You will be
+        able to control the lights.
+        Honestly... Who wouldn't want that?</p>
+    </main>
+    {% endif %}
+
+
+    <footer class="mt-auto text-white-50">
+      <p> Jarne Van der Plas</p>
+    </footer>
+  </div>
 
 </body>
 
