@@ -2,7 +2,7 @@ from app.application import create_app, login_manager, db, bcrypt, ConfigParser
 from app.main.models import User
 from . import main
 import flask, flask_login
-
+import time
 
 #Check if the user is logged in. Remember the user if the user is logged in
 @login_manager.user_loader
@@ -33,6 +33,8 @@ def home():
 @main.route("/logout")
 @flask_login.login_required
 def logout():
+    with open('user.log', 'a') as f:
+        f.write("User " + flask_login.current_user.username + " logged out at " + str(time.strftime("%d-%m-%Y %H:%M"))+ "\n")
     flask_login.logout_user()
     return flask.redirect(flask.url_for('main.index')) 
 
@@ -50,6 +52,8 @@ def login():
             #salt and hash password
             if user and bcrypt.check_password_hash(user.pwd, flask.request.form['password']):
                 flask_login.login_user(user)
+                with open('user.log', 'a') as f:
+                    f.write("User " + flask_login.current_user.username + " logged in at " + str(time.strftime("%d-%m-%Y %H:%M")) + "\n")
                 return flask.redirect(flask.url_for('main.index'))
             #Show popup message if the username or password is incorrect
             flask.flash('Username or password is incorrect')
@@ -72,6 +76,8 @@ def register():
             )
             db.session.add(newUser)
             db.session.commit()
+            with open('user.log', 'a') as f:
+                f.write("User " + flask.request.form['username'] + " registered a new account at " + str(time.strftime("%d-%m-%Y %H:%M"))+ "\n")
             return flask.redirect(flask.url_for('main.login'))
         except Exception as e:
             print(e)

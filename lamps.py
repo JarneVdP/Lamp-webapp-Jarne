@@ -10,4 +10,7 @@ def not_found_error(error):
 
 #run the app via socketio on port 8080
 if __name__ == '__main__':
+    import logging
+    logging.basicConfig(filename='error.log',level=logging.DEBUG)
+    
     SOCKETIO.run(APP, host='localhost', port=8080, use_reloader=False)

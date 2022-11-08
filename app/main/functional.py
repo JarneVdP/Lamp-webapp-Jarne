@@ -6,6 +6,7 @@ from . import main
 from .coapclient import *
 from ..templates import *
 from ..application import SOCKETIO, login_manager
+import time
 
 #lamps template for displaying all lamps values and the sliders
 @main.route('/lamps') 
@@ -38,6 +39,8 @@ def lampstatusrequest(lamp):
     if request.method == 'POST' or request.method == 'PUT':
         if 'dimming' in request.form:
             value = request.form['dimming']
+            # with open('user.log', 'a') as f:
+            #     f.write("User " + request.form['username'] + " changed lamp" + lamp +" to " + value + "at" + str(time.strftime("%d-%m-%Y %H:%M"))+ "\n")
         else:
             return ({'Error': ' diming is not defined'}, 404)
         # input value parsing
@@ -46,6 +49,8 @@ def lampstatusrequest(lamp):
         elif int(value) < 0:
             value = 0
 
+        with open('user.log', 'a') as f:
+            f.write("User " + flask_login.current_user.username  + " changed " + lamp +" to " + value + " at " + str(time.strftime("%d-%m-%Y %H:%M"))+ ".\n")
         asyncio.run(coapsetlampstatus('coap://' + lamp + '.irst.be/lamp/dimming', bytes(str(value), 'utf-8')))
         val = asyncio.run(coapgetlampstatus('coap://' + lamp + '.irst.be/lamp/dimming'))
         SOCKETIO.emit('ReceiveFromLampServer', val)
