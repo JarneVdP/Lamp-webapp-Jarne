@@ -50,6 +50,7 @@
                     })
                 }
             }
+
             lampstatus();
 
             socket.on('ReceiveFromLampServer', function (msg) {
@@ -140,6 +141,7 @@
         input:focus+label {
             color: black;
         }
+
         .slider-range {
             background-color: #0ba9e7;
         }
@@ -159,17 +161,16 @@
                 <h3 class="float-md-start mb-0">Lampss</h3>
                 <nav class="nav nav-masthead justify-content-center float-md-end">
                     <a class="nav-link fw-bold py-1 px-0" href="/">Home</a>
-                    <a class="nav-link fw-bold py-1 px-0" aria-current="page" href="/register">Register</a>
-                    <a class="nav-link fw-bold py-1 px-0" href="/login">Login</a>
                     <a class="nav-link fw-bold py-1 px-0" href="/logout">Logout</a>
                 </nav>
             </div>
         </header>
+
         <div class="text-center">
             <div class="form-signin w-auto m-auto text-nowrap">
                 <h1 class="h3 mb-3 fw-normal">Change the dimming level</h1>
             </div>
-        </div> 
+        </div>
         <div class="bg-light p-5 mt-3 rounded">
             <div class="container text-center">
                 <div class="row">
@@ -293,10 +294,10 @@
                         <p class="text-muted">Value
                             <span class="myvalues text-muted" id="customRange6aValue"> -1 </span>
                         </p>
-                        <input type="range" min="0" max="100" class="myslider-range" id="customRange6a">
+                        <input type="range" min="0" max="100" class="myslider-range-all" id="customRange6a">
                     </div>
                 </div>
-            </div>  
+            </div>
         </div>
         <div class="col-xs-12" style="height:10px;"></div>
         <footer class="mt-auto text-white-50">
