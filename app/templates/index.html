@@ -10,6 +10,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+
 
   <style>
     .bd-placeholder-img {
@@ -70,6 +73,21 @@
     .btn-xlarge:hover {
       color: black;
     }
+
+    #aSide {
+      height: 400px;
+      width: 400px;
+      position: relative;
+      left: 80px;
+    }
+
+    #aSide model-viewer {
+      height: 400px;
+      width: 400px;
+      position: relative;
+      border: none;
+      left: 80px;
+    }
   </style>
 
   <link rel="stylesheet" href="static/css/style.css">
@@ -79,8 +97,8 @@
 
 
 <body class="d-flex h-100 text-center text-bg-dark">
-
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
     {% if current_user.is_authenticated %}
     <header class="mb-auto">
       <div>
@@ -125,6 +143,10 @@
     </main>
     {% endif %}
 
+    <div id="aSide">
+      <model-viewer src="static/3D/lamps.glb" alt="Lamp" auto-rotate camera-controls ar ios-src="static/3D/lamps.glb">
+      </model-viewer>
+    </div>
 
     <footer class="mt-auto text-white-50">
       <p> Jarne Van der Plas</p>
