@@ -1,11 +1,10 @@
 from flask import render_template, request
-from flask_socketio import SocketIO
 import flask_login
 import asyncio
 from . import main
 from .coapclient import *
 from ..templates import *
-from ..application import SOCKETIO, login_manager
+from ..application import SOCKETIO
 import time
 
 #lamps template for displaying all lamps values and the sliders

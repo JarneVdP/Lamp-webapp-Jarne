@@ -1,4 +1,4 @@
-from app.application import create_app, login_manager, db, bcrypt, ConfigParser
+from app.application import create_app, login_manager, db, bcrypt
 from app.main.models import User
 from . import main
 import flask, flask_login
