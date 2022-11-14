@@ -13,4 +13,4 @@ if __name__ == '__main__':
     import logging
     logging.basicConfig(filename='error.log',level=logging.DEBUG)
     
-    SOCKETIO.run(APP, host='localhost', port=8080, use_reloader=False)
+    SOCKETIO.run(APP, host='0.0.0.0', port=8080,debug=True, use_reloader=False)
